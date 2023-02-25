@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block pageContent %}
+
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card py-2">
+        <form method="post">
+            {% csrf_token %}
+            <h2>Delete Customer</h2>
+            <p>Are you sure that you want to delete "{{customer.name|title}}"?</p>
+            <p class="form-buttons text-center">
+                <input type="submit" class="btn btn-outline-primary" value="Delete">
+                <a href="{% url 'customers' %}" class="btn btn-outline">Cancel</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block pageContent %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="card-title mb-0">Product List</h4>
+            <div class="text-start">
+                <button class="btn btn-primary bg-gradient btn-sm rounded-0" data-bs-toggle="modal" data-bs-target="#returnModal"><i class="mdi mdi-plus"></i><span> Add New Return </span></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered caption-top" id="returns">
+                <caption>Todays Returns</caption>
+                <thead>
+                    <tr>
+                        <th class="text-center py-1">#</th>
+                        <th class="text-center py-1">Product</th>
+                        <th class="text-center py-1">Quantity</th>
+                        <th class="text-center py-1">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for return in user_returns %}
+                    <tr>
+                        <td class="px-2 py-1 text-center">{{ return.id }}</td>
+                        <td class="px-2 py-1 text-start">{{ return.product }}</td>
+                        <td class="px-2 py-1 text-start">{{ return.return_quantity }}</td>
+                        <td class="px-2 py-1 text-start">{{ return.created }}</td>                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    Total Returns (24H): {{user_returns_total}}
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% comment %} modal start {% endcomment %}
+<div class="modal fade" id="returnModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="returnModallable" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="returnModallable">Add New Return</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="modal-body w-100">
+                {{return_form|crispy}}
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Reconsile</button>
+            </div>
+        </form>
+        <script>
+            $(document).ready(function() {
+                $("#id_product").select2(
+                    {
+                        dropdownParent: $("#returnModal"),
+                        theme: "classic"
+                    }
+                );
+            });
+        </script>
+      </div>
+    </div>
+  </div>
+{% comment %} modal end  {% endcomment %}
+
+{% endblock pageContent %}

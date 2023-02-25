@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+{% block pageContent %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="card-title mb-0">Update {{customer.name}}</h4>
+        </div>
+    </div>
+</div>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="modal-body w-100">
+                    {{edit_form|crispy}}
+                </div>
+                <div class="text-center">
+                    <a href="{% url 'customers' %}" type="button" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+{% endblock pageContent %}

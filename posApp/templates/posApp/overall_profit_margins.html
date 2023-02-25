@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+{% block pageContent %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="card-title mb-0"> Profit Margins </h4>
+        </div>
+    </div>
+</div>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <!--Section: Minimal statistics cards-->
+        <section class="mt-4">
+
+            <div class="row d-flex justify-content-between">
+                <h3 class="text-center mb-4">Today Margins</h3>
+                <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div>
+                                <h3 class="text-info">{{sold_product_count_today}}</h3>
+                                <p class="mb-0">Items Sold</p>
+                            </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-book-open text-info fa-3x"></i>
+                                </div>
+                            </div>
+                            <div class="px-md-1">
+                                <div class="progress mt-3 mb-1 rounded" style="height: 7px">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div>
+                                <h3 class="text-primary">Ksh. {{total_sales_today}}</h3>
+                                <p class="mb-0">Sales Made</p>
+                            </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-book-open text-info fa-3x"></i>
+                                </div>
+                            </div>
+                            <div class="px-md-1">
+                                <div class="progress mt-3 mb-1 rounded" style="height: 7px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div>
+                                <h3 class="{% if profit_and_loss_today > 0 %} text-success {% else %} text-danger {% endif %}">Ksh. {{profit_and_loss_today}}</h3>
+                                <p class="mb-0">Profit Margin</p>
+                            </div>
+                                <div class="align-self-center">
+                                    {% if profit_and_loss_today > 0 %}
+                                        <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon text-success">add</i>
+                                    {% else %}
+                                        <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon text-danger">remove</i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="px-md-1">
+                                <div class="progress mt-3 mb-1 rounded" style="height: 7px">
+                                    {% if profit_and_loss_today > 0 %}
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" ></div>
+                                    {% else %}
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" ></div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-between">
+                <h3 class="text-center mb-4">This Month Margins</h3>
+                <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div>
+                                <h3 class="text-info">{{sold_product_count_month}}</h3>
+                                <p class="mb-0">Items Sold</p>
+                            </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-book-open text-info fa-3x"></i>
+                                </div>
+                            </div>
+                            <div class="px-md-1">
+                                <div class="progress mt-3 mb-1 rounded" style="height: 7px">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div>
+                                <h3 class="text-primary">Ksh. {{total_sales_month}}</h3>
+                                <p class="mb-0">Sales Made</p>
+                            </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-book-open text-info fa-3x"></i>
+                                </div>
+                            </div>
+                            <div class="px-md-1">
+                                <div class="progress mt-3 mb-1 rounded" style="height: 7px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div>
+                                <h3 class="{% if profit_and_loss_month > 0 %} text-success {% else %} text-danger {% endif %}">Ksh. {{profit_and_loss_month}}</h3>
+                                <p class="mb-0">Profit Margin</p>
+                            </div>
+                                <div class="align-self-center">
+                                    {% if profit_and_loss_month > 0 %}
+                                        <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon text-success">add</i>
+                                    {% else %}
+                                        <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon text-danger">remove</i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="px-md-1">
+                                <div class="progress mt-3 mb-1 rounded" style="height: 7px">
+                                    {% if profit_and_loss_month > 0 %}
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" ></div>
+                                    {% else %}
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" ></div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-between">
+                <h3 class="text-center mb-4">This Year Margins</h3>
+                <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div>
+                                <h3 class="text-info">{{sold_product_count_year}}</h3>
+                                <p class="mb-0">Items Sold</p>
+                            </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-book-open text-info fa-3x"></i>
+                                </div>
+                            </div>
+                            <div class="px-md-1">
+                                <div class="progress mt-3 mb-1 rounded" style="height: 7px">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div>
+                                <h3 class="text-primary">Ksh. {{total_sales_year}}</h3>
+                                <p class="mb-0">Sales Made</p>
+                            </div>
+                                <div class="align-self-center">
+                                    <i class="fas fa-book-open text-info fa-3x"></i>
+                                </div>
+                            </div>
+                            <div class="px-md-1">
+                                <div class="progress mt-3 mb-1 rounded" style="height: 7px">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div>
+                                <h3 class="{% if profit_and_loss_year > 0 %} text-success {% else %} text-danger {% endif %}">Ksh. {{profit_and_loss_year}}</h3>
+                                <p class="mb-0">Profit Margin</p>
+                            </div>
+                                <div class="align-self-center">
+                                    {% if profit_and_loss_year > 0 %}
+                                        <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon text-success">add</i>
+                                    {% else %}
+                                        <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon text-danger">remove</i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="px-md-1">
+                                <div class="progress mt-3 mb-1 rounded" style="height: 7px">
+                                    {% if profit_and_loss_year > 0 %}
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" ></div>
+                                    {% else %}
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" ></div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-bold">NB: Please note the "Total Sales" is affected by price change at Point Of Sell Page</p> 
+        </section>
+      <!--Section: Minimal statistics cards-->
+    </div>
+</div>
+
+{% endblock pageContent %}

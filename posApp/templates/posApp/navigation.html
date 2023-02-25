@@ -1,0 +1,30 @@
+{% load static %}
+<!-- partial:partials/_sidebar.html -->
+<aside class="mdc-drawer mdc-drawer--dismissible mdc-drawer--open sidebar-dark-primary">
+    <div class="mdc-drawer__header border-bottom border-light">
+        <a href="/" class="brand-link ml-2">
+            <h4 class="brand-text font-weight-light text-light mt-1 ml-3">OPTIMAL PHARMACY</h4>
+        </a>
+    </div>
+    <div class="mdc-drawer__header border-bottom border-light">
+        <p class="text-light">{{user.get_full_name}}</p>
+        <a href="{% url 'hod_profile' %}"><i class="fa fa-circle text-success"></i>{{user.username}}</a>
+    </div>
+    <div class="mdc-drawer__content">
+        <div class="mdc-list-group">
+            <nav class="mdc-list mdc-drawer-menu">
+                <div class="mdc-list-item mdc-drawer-item">
+                    <a class="mdc-drawer-link" href="/">
+                        <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">home</i> Home
+                    </a>
+                </div>
+                <div class="mdc-list-item mdc-drawer-item">
+                    <a class="mdc-drawer-link" href="{% url 'manage_stock' %}">
+                        <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">list</i> Manage Stock
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div>
+</aside>
+<!-- partial -->

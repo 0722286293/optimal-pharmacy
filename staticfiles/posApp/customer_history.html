@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+{% block pageContent %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="card-title mb-0"> {{customer.name}} </h4>
+            <a href="{% url 'customers' %}" class="btn btn-outline-success" type="btn">Back to customers</a>
+        </div>
+    </div>
+</div>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered caption-top" id="returns">
+                <caption>Cusomer History</caption>
+                <thead>
+                    <tr>
+                        <th class="text-center py-1">Sales Id</th>
+                        <th class="text-center py-1">Product Code</th>
+                        <th class="text-center py-1">Product Name</th>
+                        <th class="text-center py-1">Bought Quantity</th>
+                        <th class="text-center py-1">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items_history %}
+                    <tr>
+                        <td class="px-2 py-1 text-start">{{item.sale_id.code}}</td>
+                        <td class="px-2 py-1 text-start">{{ item.product_id.code }}</td>
+                        <td class="px-2 py-1 text-start">{{ item.product_id.name }}</td>
+                        <td class="px-2 py-1 text-start">{{ item.qty|intcomma }}</td>
+                        <td class="px-2 py-1 text-start">{{ item.total }}</td>
+                        <td class="px-2 py-1 text-start">{{ item.created|naturaltime }}</td>                    
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    {{item.sale_id.cusomer.name|title}} History
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock pageContent %}

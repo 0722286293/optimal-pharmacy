@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+{% block pageContent %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="card-title mb-0">Customers Profiles</h4>
+            <div class="text-start">
+                <button class="btn btn-primary bg-gradient btn-sm rounded-0" data-bs-toggle="modal" data-bs-target="#costomerModel"><i class="mdi mdi-plus"></i><span> Add New Customer </span></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered caption-top" id="returns">
+                <caption>Customers</caption>
+                <thead>
+                    <tr>
+                        <th class="text-center py-1">#</th>
+                        <th class="text-center py-1">Email</th>
+                        <th class="text-center py-1">Customer Id</th>
+                        <th class="text-center py-1">Date</th>
+                        <th class="text-center py-1">Actions</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for customer in customers %}
+                    <tr>
+                        <td class="px-2 py-1 text-start">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ customer.avatar.url }}" alt="avatar"  style="width: 45px; height: 45px" class="rounded-circle"/>
+                                <div class="ms-3">
+                                    <p class="fw-bold mb-1"> {{ customer.name }}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-2 py-1 text-start">{{ customer.email }}</td>
+                        <td class="px-2 py-1 text-start">{{ customer.id }}</td>
+                        <td class="px-2 py-1 text-start">{{ customer.created|naturalday }}</td> 
+                        <td class="px-2 py-1 text-start">
+                            <a href="{% url 'customer_history' customer.slug %}">History</a>
+                            <a href="{% url 'edit_customer' customer.slug %}" class="ms-2">Edit</a>
+                            <a href="{% url 'delete_customer' customer.slug %}" class="ms-2">Delete</a>
+                        </td>                     
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% comment %} modal start {% endcomment %}
+<div class="modal fade" id="costomerModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="costomerModellable" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="costomerModellable">Add New Customer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="modal-body w-100">
+                {{add_form|crispy}}
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </form>
+        <script>
+            $(document).ready(function() {
+                $("#id_product").select2(
+                    {
+                        dropdownParent: $("#costomerModel"),
+                        theme: "classic"
+                    }
+                );
+            });
+        </script>
+      </div>
+    </div>
+  </div>
+{% comment %} modal end  {% endcomment %}
+
+{% endblock pageContent %}

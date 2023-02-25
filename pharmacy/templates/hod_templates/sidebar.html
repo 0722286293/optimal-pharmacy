@@ -1,0 +1,107 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/" class="brand-link ml-2">
+        <span class="brand-text font-weight-light mt-1 ml-3 mmust">OPTIMAL PHARMACY</span>
+    </a>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user (optional) -->
+        <div class="user-panel mr-3">
+            <div class="pull-left image sm-submenu-with-image a ml-2 ">
+                <img src="{{request.user.adminhod.profile_pic.url}}" class="img-circle mt-2" width="36" height="36" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p>{{user.get_full_name}}</p>
+                <a href="#"><i class="fa fa-circle text-success "></i> {{user.username}}</a>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                <li class="nav-item">
+                    <a href="{% url  'admin_dashboard' %}" class="nav-link">
+                        <i class="fas fa-tachometer-alt mr-2"></i>
+                        <p>
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url  'pos-page' %}" class="nav-link">
+                        <i class="fas fa-ship mr-2"></i>
+                        <p>
+                            Point Of Sell
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-layer-group mr-2"></i>
+                        <p>
+                            Stock Management
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'add_category'  %}" class="nav-link">
+                                <i class="fas fa-pills"></i>
+                                <p class="pl-2">Add Category</p>
+                            </a>
+                        </li>
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'add_stock' %}" class="nav-link">
+                                <i class="fas fa-capsules"></i>
+                                <p class="pl-2">add Drug</p>
+                            </a>
+                        </li>
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'manage_stock'  %}" class="nav-link">
+                                <i class="fas fa-th"></i>
+                                <p class="pl-2">Manage Stock</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url  'notify' %}" class="nav-link">
+                        <i class="fas fa-bell mr-2"></i>
+                        <p>
+                            Stock Notifications &nbsp;&nbsp; <span>{{low_stock_notifications}}</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-file mr-2"></i>
+                        <p>
+                            Reports
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'sales_report' %}" class="nav-link">
+                                <i class="fas fa-file"></i>
+                                <p class="pl-2">Sales Report</p>
+                            </a>
+                        </li>
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'drugs_sold' %}" class="nav-link">
+                                <i class="fas fa-file"></i>
+                                <p class="pl-2">Sold Drugs Report</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>
