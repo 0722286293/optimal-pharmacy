@@ -38,5 +38,5 @@ def day_check_notification():
 
 def start():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(day_check_notification, 'interval', minutes=0.3) # every day: 1440 minuttes
+    scheduler.add_job(day_check_notification, 'interval', minutes=1440) # every day: 1440 minuttes
     scheduler.start()
