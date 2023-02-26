@@ -144,9 +144,9 @@ MEDIA_URL='/images/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'static/images')
 
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST='smtp.sendgrid.net'
+EMAIL_HOST='smtp.ethereal.email'
 EMAIL_PORT= 587
 EMAIL_USE_TLS= True
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD=str(os.getenv('sendgrid'))
+EMAIL_HOST_USER = 'oleta.cummings@ethereal.email'
+EMAIL_HOST_PASSWORD= 'BACJnqYwpKnrGsMC72'
 DEFAULT_FROM_EMAIL='Pharmacy Management System <tolybrian6@gmail.com>'
